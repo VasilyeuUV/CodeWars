@@ -13,6 +13,8 @@ namespace CodeWarsConsoleApp.BeginnerSeries
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        public static int DoubleInteger(int n) => n << 1;
+        public static int DoubleInteger(int n) 
+            => n << 1;
+
     }
 }

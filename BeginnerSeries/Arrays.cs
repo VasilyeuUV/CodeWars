@@ -78,5 +78,78 @@
             }
             return z;
         }
+
+
+
+
+        /// <summary>
+        /// return the lowest number in that list
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public int Min(int[] list)
+        {
+            var result1 = list.Min();
+
+            var result3 = int.MaxValue;
+            for (int i = 0; i < list.Length; i++)
+            {
+                if (list[i] < result3)
+                {
+                    result3 = list[i];
+                }
+            }
+
+            return result3;
+        }
+
+
+        /// <summary>
+        /// return the largest number in that list
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public int Max(int[] list)
+        {
+            var result1 = list.Max();
+
+            Array.Sort(list);
+            var result2 = list[^1];
+
+            var result3 = int.MinValue;
+            for (int i = 0; i < list.Length; i++)
+            {
+                if (list[i] > result3)
+                {
+                    result3 = list[i];
+                }
+            }
+
+            return result3;
+        }
+
+
+        /// <summary>
+        /// Calculates the average of the numbers in a given list.<br/>
+        /// Note: Empty arrays should return 0.
+        /// </summary>
+        /// <param name="array"></param>
+        /// <returns></returns>
+        public static double FindAverage(double[] array)
+        {
+            var result1 = array.Length == 0 ? 0 : array.Average();
+            var result2 = array.Length == 0 ? 0 : array.Sum() / array.Length; 
+            var result4 = array.Any() ? array.Average() : 0;
+            var result5 = array.DefaultIfEmpty().Average();
+
+            var result3 = 0d;
+            for (int i = 0; i < array.Length; i++)
+            {
+                result3 += array[i];
+            }
+            result3 /= array.Length;
+
+            return result3;
+        }
     }
 }
