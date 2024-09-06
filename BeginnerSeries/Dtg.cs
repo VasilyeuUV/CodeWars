@@ -15,5 +15,28 @@
             var difference2 = (int)(new TimeSpan(h, m, s)).TotalMilliseconds;
             return difference1;
         }
+
+
+        /// <summary>
+        /// Задав год, верните век, в котором он находится.
+        /// </summary>
+        /// <param name="year"></param>
+        /// <returns>
+        /// <code>
+        /// 1705 --> 18
+        /// 1900 --> 19
+        /// </code>
+        /// </returns>
+        public static int СenturyFromYear(int year)
+        {
+            var result =  (int)Math.Ceiling(year / 100m);
+            var result1 = (year + 99) / 100;
+
+            return result;
+        }
+
+
+
+
     }
 }

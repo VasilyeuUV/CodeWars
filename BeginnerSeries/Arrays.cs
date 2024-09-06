@@ -1,4 +1,10 @@
-﻿namespace CodeWarsConsoleApp.BeginnerSeries
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CodeWarsConsoleApp.BeginnerSeries
 {
     public class Arrays
     {
@@ -138,7 +144,7 @@
         public static double FindAverage(double[] array)
         {
             var result1 = array.Length == 0 ? 0 : array.Average();
-            var result2 = array.Length == 0 ? 0 : array.Sum() / array.Length; 
+            var result2 = array.Length == 0 ? 0 : array.Sum() / array.Length;
             var result4 = array.Any() ? array.Average() : 0;
             var result5 = array.DefaultIfEmpty().Average();
 
@@ -150,6 +156,58 @@
             result3 /= array.Length;
 
             return result3;
+        }
+
+
+        /// <summary>
+        /// Найти наименьшее целоче число в массиве.
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public static int FindSmallestInt(int[] args)
+        {
+            Array.Sort(args);
+            var result = args[0];
+
+            var result1 = args.Min();
+            var result2 = Enumerable.Min(args);
+            var result3 = unchecked(-args.Select(n => ~n).Max() + (-1));
+            var result4 = args.OrderBy(a => a).First();
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Вернуть результат умножения значений массива по порядку
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static int Grow(int[] x)
+        {
+            int result = 0;
+            for (int i = 0; i < x.Length; i++)
+                result *= x[i];
+
+            var result1 = x.Aggregate((a, b) => a * b);
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Преобразование числа в обратный массив цифр.
+        /// <code>
+        /// 35231 => [1,3,2,5,3]
+        /// </code>
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static long[] Digitize(long n)
+        {
+            var result = n.ToString().Reverse().Select(ch => Convert.ToInt64(char.GetNumericValue(ch))).ToArray();
+            var result1 = n.ToString().Reverse().Select(x => long.Parse(x.ToString())).ToArray();
+            var result2 = $"{n}".Select(c => (long)c - '0').Reverse().ToArray();
         }
     }
 }

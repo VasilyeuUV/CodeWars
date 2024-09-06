@@ -13,8 +13,38 @@ namespace CodeWarsConsoleApp.BeginnerSeries
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        public static int DoubleInteger(int n) 
+        public static int DoubleInteger(int n)
             => n << 1;
 
+
+        /// <summary>
+        /// Cоздать функцию, которая может принимать в качестве аргумента любое неотрицательное целое число и возвращать его с цифрами в порядке убывания.
+        /// <code>
+        /// Example - Input: 42145 Output: 54421
+        /// </code>
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static int DescendingOrder(int num)
+        {
+            var result = Convert.ToInt32(string.Join("", num.ToString().ToArray().OrderByDescending(ch => ch)));
+            var result1 = int.Parse(string.Concat(num.ToString().OrderByDescending(x => x)));
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Вернуть сумму всех чисел от 1 до num.
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static int Summation(int num)
+        {
+            var result = Enumerable.Range(1, num).Sum();
+            var result1 = num * ++num / 2;
+
+            return result;
+        }
     }
 }

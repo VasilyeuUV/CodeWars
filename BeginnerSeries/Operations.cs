@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace CodeWarsConsoleApp.BeginnerSeries
 {
@@ -73,6 +74,59 @@ namespace CodeWarsConsoleApp.BeginnerSeries
         {
             var result = Convert.ToInt32(string.Join("", n.ToString().ToArray().Select(c => (int)Math.Pow(Convert.ToInt32(c.ToString()), 2))));
             var result1 = int.Parse(String.Concat(n.ToString().Select(a => (int)Math.Pow(char.GetNumericValue(a), 2))));
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Вычислите среднее значение и сравните свои баллы.<br/>
+        /// Ваши баллы не входят в массив баллов вашего класса. 
+        /// </summary>
+        /// <param name="ClassPoints">Массив с результатами тестов</param>
+        /// <param name="YourPoints"> свои баллы</param>
+        /// <returns>true, если вы лучше, иначе false</returns>
+        public static bool BetterThanAverage(int[] classPoints, int yourPoints)
+            => classPoints.Average() < yourPoints;
+
+
+        /// <summary>
+        /// Вычислите сумму чисел в n-й строке этого треугольника
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static long RowSumOddNumbers(long n)
+        {
+            int[][] arr = {
+                new int[] { 1 },
+                new int[] { 3, 5 },
+                new int[] { 7, 9, 11 },
+                new int[] { 13, 15, 17, 19 },
+                new int[] { 21, 23, 25, 27, 29 }
+            };
+
+            var result = ((n * n - n + 1) + (n * n + n - 1)) / 2 * n;
+            var result1 = n * n * n;
+            var result2 = (long)Math.Pow(n, 3);
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Проверить PIN-код (не могут содержать ничего, кроме ровно 4 цифр или ровно 6 цифр)
+        /// </summary>
+        /// <param name="pin"></param>
+        /// <returns>Если функции передана правильная строка PIN-кода, возвращается true, в противном случае возвращается false.</returns>
+        public static bool ValidatePin(string pin)
+        {
+            var result = Regex.IsMatch(pin, @"^(\d{4,4}\z)$")
+                  || Regex.IsMatch(pin, @"^(\d{6,6}\z)$");
+
+            var result1 = Regex.IsMatch(pin, @"^(\d{6}|\d{4})\z");
+            var result2 = Regex.IsMatch(pin, @"^(\d{2}){2,3}\z", RegexOptions.Multiline);
+            var result3 = pin.All(n => char.IsDigit(n)) 
+                && (pin.Length == 4 || pin.Length == 6);
 
             return result;
         }

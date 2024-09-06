@@ -71,5 +71,15 @@ namespace CodeWarsConsoleApp.BeginnerSeries
             return result;
         }
 
+
+        /// <summary>
+        /// return, "Hello, <name> how are you doing today?"
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static string Greet(string name)
+            => $"Hello, {name} how are you doing today?";
+
     }
 }
