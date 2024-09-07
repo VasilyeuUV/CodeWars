@@ -208,6 +208,82 @@ namespace CodeWarsConsoleApp.BeginnerSeries
             var result = n.ToString().Reverse().Select(ch => Convert.ToInt64(char.GetNumericValue(ch))).ToArray();
             var result1 = n.ToString().Reverse().Select(x => long.Parse(x.ToString())).ToArray();
             var result2 = $"{n}".Select(c => (long)c - '0').Reverse().ToArray();
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Верните сумму значений массива, как если бы все они были числами.
+        /// </summary>
+        /// <param name="x">Массив целых чисел в виде строк и чисел</param>
+        /// <returns>Ответ в виде числа</returns>
+        public static int SumMix(object[] x)
+        {
+            var result = x.Sum(n => (int)(n is int ? n : int.Parse(n.ToString())));
+            var result1 = x.Sum(Convert.ToInt32);   // using static System.Convert;
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Вернуть массив, в котором каждое значение удвоено.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static int[] Maps(int[] x)
+        {
+            var result = x.Select(n => n * 2).ToArray();
+            var result1 = x.Select(n => n << 1).ToArray();
+
+            var result2 = Array.ConvertAll(x, n => n * 2);
+
+            return result1;
+        }
+
+
+        /// <summary>
+        /// Возвращает сумму двух наименьших положительных чисел.
+        /// </summary>
+        /// <param name="numbers">Массив из минимум 4 положительных целых чисел</param>
+        /// <returns></returns>
+        public static int SumTwoSmallestNumbers(int[] numbers)
+            => numbers.OrderBy(x => x).Take(2).Sum();
+
+
+        /// <summary>
+        /// найти индекс N, при котором сумма целых чисел слева от N равна сумме целых чисел справа от N.
+        /// <code>
+        /// {1,2,3,4,3,2,1} => 3 (в 3-й позиции массива сумма левой части индекса ({1,2,3}) и сумма правой части индекса ({3,2,1}) равны 6.)
+        /// пустые массивы равны 0
+        /// </code>
+        /// </summary>
+        /// <param name="arr">массив целых чисел.</param>
+        /// <returns>Позицию N или -1, если такой позиции нет.</returns>
+        public static int FindEvenIndex(int[] arr)
+        {
+            var result = -1;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                int sumLeft = arr.Take(i).Sum();
+                int sumRight = arr.Skip(i + 1).Take(arr.Length).Sum();
+                if (sumLeft == sumRight)
+                    result = i;
+            }
+
+            var result1 = -1;
+            for (var i = 0; i < arr.Length; i++)
+            {
+                if (arr.Take(i).Sum() == arr.Skip(i + 1).Sum())
+                    result1 = i;
+            }
+
+            var result2 = Enumerable.Range(0, arr.Length).ToList().FindIndex(i => arr[..i].Sum() == arr[(i + 1)..].Sum());
+            var result3 = Enumerable.Range(0, arr.Length).Where(i => arr[..i].Sum() == arr[(i + 1)..].Sum()).DefaultIfEmpty(-1).First();
+            var result4 = Enumerable.Range(0, arr.Length).FirstOrDefault(i => arr[..i].Sum() == arr[(i + 1)..].Sum(), -1);
+
+            return result;
         }
     }
 }

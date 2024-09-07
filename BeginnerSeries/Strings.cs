@@ -81,5 +81,26 @@ namespace CodeWarsConsoleApp.BeginnerSeries
         public static string Greet(string name)
             => $"Hello, {name} how are you doing today?";
 
+
+        /// <summary>
+        /// Возвращает каждую строку, дополненную нужным номером. 
+        /// </summary>
+        /// <param name="lines"></param>
+        /// <returns></returns>
+        public static List<string> Number(List<string> lines)
+        {
+            var result = lines.Select((x, i) => $"{++i}: {x}").ToList();
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Преобразование имени в инициалы. 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static string AbbrevName(string name)
+            => string.Join(".", name.Split(' ').Select(n => n[0])).ToUpper();
     }
 }

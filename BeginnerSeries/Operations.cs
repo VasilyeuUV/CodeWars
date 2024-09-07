@@ -114,19 +114,138 @@ namespace CodeWarsConsoleApp.BeginnerSeries
 
 
         /// <summary>
-        /// Проверить PIN-код (не могут содержать ничего, кроме ровно 4 цифр или ровно 6 цифр)
+        /// Найти среднее значение из трех переданных оценок и вернуть буквенное значение, связанное с этой оценкой.
         /// </summary>
-        /// <param name="pin"></param>
-        /// <returns>Если функции передана правильная строка PIN-кода, возвращается true, в противном случае возвращается false.</returns>
-        public static bool ValidatePin(string pin)
+        /// <param name="s1"></param>
+        /// <param name="s2"></param>
+        /// <param name="s3"></param>
+        /// <returns></returns>
+        public static char GetGrade(int s1, int s2, int s3)
         {
-            var result = Regex.IsMatch(pin, @"^(\d{4,4}\z)$")
-                  || Regex.IsMatch(pin, @"^(\d{6,6}\z)$");
+            var a = (s1 + s2 + s3) / 3;
+            var result = a >= 90 ? 'A'
+                : a >= 80 ? 'B'
+                : a >= 70 ? 'C'
+                : a >= 60 ? 'D'
+                : 'F';
 
-            var result1 = Regex.IsMatch(pin, @"^(\d{6}|\d{4})\z");
-            var result2 = Regex.IsMatch(pin, @"^(\d{2}){2,3}\z", RegexOptions.Multiline);
-            var result3 = pin.All(n => char.IsDigit(n)) 
-                && (pin.Length == 4 || pin.Length == 6);
+            var result1 = ((s1 + s2 + s3) / 30) switch
+            {
+                10 => 'A',
+                9 => 'A',
+                8 => 'B',
+                7 => 'C',
+                6 => 'D',
+                _ => 'F'
+            };
+
+            var dict = new Dictionary<int, char>
+            {
+                { 90, 'A' },
+                { 80, 'B' },
+                { 70, 'C' },
+                { 60, 'D' },
+                { 0, 'F' },
+            };
+            var result2 = dict.First(e => (new int[] { s1, s2, s3 }).Average() >= e.Key).Value;
+
+            int s = (s1 + s2 + s3) / 3;
+            var result3 = s >= 60 
+                ? (char)(74 - s / 10 + s / 100) 
+                : 'F';
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Камень-ножницы-бумага. вернуть, кто из игроков выиграл.
+        /// <code>
+        /// "scissors", "paper" --> "Player 1 won!"
+        /// "scissors", "rock" --> "Player 2 won!"
+        /// "paper", "paper" --> "Draw!"
+        /// </code>
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <returns></returns>
+        public string Rps(string p1, string p2)
+        {
+            Dictionary<string, string> wons = new Dictionary<string, string>()
+            {
+                { "scissors", "paper" },
+                { "paper", "rock" },
+                { "rock", "scissors" },
+            };
+            var result = p1.Equals(p2, StringComparison.OrdinalIgnoreCase) ? "Draw!"
+                : wons[p1].Equals(p2, StringComparison.OrdinalIgnoreCase) ? "Player 1 won!"
+                : "Player 2 won!";
+
+            string r = (p1[0] + p2[0]).ToString();
+            var p = r == "sp" || r == "rs" || r == "pr" ? 1 : 2;
+            var result1 = p1 == p2 ? "Draw!" : $"Player {p} won!";
+
+            var result2 = p1 == p2 
+                ? "Draw!" 
+                : $"Player {(new[] { 3, -1, -2 }.Contains(p1[0] - p2[0]) ? 1 : 2)} won!";
+
+            HashSet<string> map = new HashSet<string> { "scissorspaper", "paperrock", "rockscissors" };
+            var result3 = p1 == p2 
+                ? "Draw!" 
+                : map.Contains(p1 + p2) ? "Player 1 won!" : "Player 2 won!";
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// установить будильник,
+        /// </summary>
+        /// <param name="employed">true, когда вы работаете</param>
+        /// <param name="vacation">true, когда вы в отпуске</param>
+        /// <returns>true, если вы работаете и не в отпуске</returns>
+        public static bool SetAlarm(bool employed, bool vacation)
+            => employed && !vacation;
+
+
+        /// <summary>
+        /// Вычислить индекс массы тела (bmi = вес/рост2)
+        /// </summary>
+        /// <param name="weight"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public static string Bmi(double weight, double height)
+        {
+            var result = (weight / (height * height)) switch
+            {
+                <= 18.5 => "Underweight",
+                <= 25.0 => "Normal",
+                <= 30.0 => "Overweight",
+                _ => "Obese"
+            };
+
+            var result1 = (weight = weight / height / height) > 30 ? "Obese" 
+                : weight > 25 ? "Overweight" 
+                : weight > 18.5 ? "Normal" 
+                : "Underweight";
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Вернуть количество литров, округлив до наименьшего значения.<br/>
+        /// Расход 0,5 литра воды за час езды
+        /// </summary>
+        /// <param name="time">время в часах</param>
+        /// <returns></returns>
+        public static int Litres(double time)
+        {
+            var result = (int)Math.Floor(0.5 * time);
+
+            var result1 = (int)(time / 2);
+            var result2 = (int)(time * 0.5);
+            var result3 = (int)time >> 1;
 
             return result;
         }
