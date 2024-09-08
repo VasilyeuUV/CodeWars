@@ -259,5 +259,26 @@ namespace CodeWarsConsoleApp.BeginnerSeries
 
             return result;
         }
+
+
+        /// <summary>
+        /// Рассчитать общую сумму ренты за разное количество дней.<br/>
+        /// Каждый день аренды автомобиля стоит 40 долларов.<br/>
+        /// Если вы арендуете машину на 7 или более дней, то получите скидку 50 долларов.<br/>
+        /// Если вы арендуете автомобиль на 3 или более дней, вы получите скидку $20. 
+        /// </summary>
+        /// <param name="d">Количество дней.</param>
+        /// <returns></returns>
+        public static int RentalCarCost(int d)
+        {
+            var sum = 40 * d;
+            var result = d >= 7 ? sum - 50
+                : d >= 3 ? sum - 20
+                : sum;
+
+            var result1 = d * 40 - (d > 6 ? 50 : d > 2 ? 20 : 0);
+
+            return result;
+        }
     }
 }

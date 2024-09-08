@@ -87,7 +87,7 @@ namespace CodeWarsConsoleApp.BeginnerSeries
         /// </summary>
         /// <param name="lines"></param>
         /// <returns></returns>
-        public static List<string> Number(List<string> lines) 
+        public static List<string> Number(List<string> lines)
             => lines
                 .Select((x, i) => $"{++i}: {x}")
                 .ToList();
@@ -121,6 +121,21 @@ namespace CodeWarsConsoleApp.BeginnerSeries
             var result3 = string.Concat(word.ToLower().Select(ch => word.ToLower().Split(ch).Length == 2 ? "(" : ")"));
             var result4 = string.Concat(word.ToLower().Select(ch => word.ToLower().Where(x => x == ch).Count() == 1 ? "(" : ")"));
             var result5 = new string(word.ToLower().Select(ch => (word.ToLower().IndexOf(ch) == word.ToLower().LastIndexOf(ch)) ? '(' : ')').ToArray());
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// преобразовать строку в число.
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static int StringToNumber(String str)
+        {
+            var result = int.TryParse(str, out var number) ? number : default;
+            var result1 = int.Parse(str);
+            var result2 = Convert.ToInt32(str);
 
             return result;
         }

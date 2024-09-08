@@ -285,5 +285,48 @@ namespace CodeWarsConsoleApp.BeginnerSeries
 
             return result;
         }
+
+
+        /// <summary>
+        /// В массиве целых чисел найдите то, которое встречается нечетное количество раз.
+        /// <code>
+        /// [0,1,0,1,0] должно возвращать 0, потому что оно встречается 3 раза (что нечетно).
+        /// </code>
+        /// </summary>
+        /// <param name="seq"></param>
+        /// <returns></returns>
+        public static int Find_it(int[] seq)
+        {
+            var result = seq.GroupBy(x => x).First(g => (g.Count() & 1) == 1).Key;
+            var result1 = seq.GroupBy(x => x).Single(g => g.Count() % 2 == 1).Key;
+            var result2 = seq.First(x => seq.Count(s => s == x) % 2 == 1);
+            var result3 = seq.Aggregate(0, (a, b) => a ^ b);                        // дано любое число «а»:
+                                                                                    // а ^ а = 0
+                                                                                    // из-за ассоциативных и коммутативных свойств оператора XOR:
+                                                                                    // а ^ б ^ а = а ^ а ^ б = (а ^ а) ^ б = 0 ^ б = б
+                                                                                    // т.е. каждое «двойное» число можно свести к 0, и останется единственное число, которое встречается нечетное число раз.
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Определить, является ли сумма элементов массива четной (even) или нечетной (щвв).<br/>
+        ///  Если входной массив пуст, считайте его как: [0] (массив с нулем).
+        ///  <code>
+        ///  Input: [0]         Output: "even"
+        ///  Input: [0, 1, 4]   Output: "odd"
+        /// </code>
+        /// </summary>
+        /// <param name="array"></param>
+        /// <returns>even или odd</returns>
+        public static string OddOrEven(int[] array)
+        {
+            var result = (array.Sum() & 1) == 1 ? "odd" : "even";
+            var result1 = array.Sum() % 2 == 0 ? "even" : "odd";
+            var result2 = array.Aggregate(0, (a, c) => a + c) % 2 == 0 ? "even" : "odd";
+
+            return result;
+        }
     }
 }
