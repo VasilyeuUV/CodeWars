@@ -13,7 +13,7 @@ namespace CodeWarsConsoleApp
 
             var c = Operations.SquareDigits(9119);
 
-            var s = Strings.MakeComplement("ATTGC");
+            var s = Strings.DuplicateEncode("");
             Console.WriteLine("Hello, World!");
         }
     }

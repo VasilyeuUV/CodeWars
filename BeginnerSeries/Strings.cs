@@ -87,12 +87,10 @@ namespace CodeWarsConsoleApp.BeginnerSeries
         /// </summary>
         /// <param name="lines"></param>
         /// <returns></returns>
-        public static List<string> Number(List<string> lines)
-        {
-            var result = lines.Select((x, i) => $"{++i}: {x}").ToList();
-
-            return result;
-        }
+        public static List<string> Number(List<string> lines) 
+            => lines
+                .Select((x, i) => $"{++i}: {x}")
+                .ToList();
 
 
         /// <summary>
@@ -102,5 +100,29 @@ namespace CodeWarsConsoleApp.BeginnerSeries
         /// <returns></returns>
         public static string AbbrevName(string name)
             => string.Join(".", name.Split(' ').Select(n => n[0])).ToUpper();
+
+
+        /// <summary>
+        /// Преобразовать строку в новую строку, где каждый символ в новой строке будет:<br/>
+        /// - "(", если этот символ встречается в исходной строке только один раз,<br/>
+        /// - ")", если этот символ встречается в исходной строке более одного раза.
+        /// </summary>
+        /// <param name="word"></param>
+        /// <returns></returns>
+        public static string DuplicateEncode(string word)
+        {
+            var chars = word.ToLower().ToArray();
+            var charGroups = chars.GroupBy(ch => ch);
+            var result = string.Concat(chars.Select(ch => charGroups.First(g => g.Key == ch).Count() > 1 ? ')' : '('));
+
+            var result1 = new string(word.ToLower().Select(ch => word.ToLower().Count(innerCh => ch == innerCh) == 1 ? '(' : ')').ToArray());
+            var result2 = string.Concat(word.ToLower().Select(ch => word.ToLower().Count(x => x == ch) > 1 ? ')' : '('));
+            var result6 = string.Join("", word.ToLower().Select(ch => word.ToLower().Count(x => x == ch) > 1 ? ')' : '('));
+            var result3 = string.Concat(word.ToLower().Select(ch => word.ToLower().Split(ch).Length == 2 ? "(" : ")"));
+            var result4 = string.Concat(word.ToLower().Select(ch => word.ToLower().Where(x => x == ch).Count() == 1 ? "(" : ")"));
+            var result5 = new string(word.ToLower().Select(ch => (word.ToLower().IndexOf(ch) == word.ToLower().LastIndexOf(ch)) ? '(' : ')').ToArray());
+
+            return result;
+        }
     }
 }
