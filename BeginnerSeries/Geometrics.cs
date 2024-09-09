@@ -48,5 +48,22 @@ namespace CodeWarsConsoleApp.BeginnerSeries
 
             return result;
         }
+
+
+        /// <summary>
+        /// Многоугольник может быть либо прямоугольником, либо квадратом.<br/>
+        /// Если это квадрат, верните его площадь..<br/>
+        /// Если это прямоугольник, верните его периметр.
+        /// </summary>
+        /// <param name="l">длина четырёхстороннего многоугольника</param>
+        /// <param name="w">ширина четырёхстороннего многоугольника</param>
+        /// <returns></returns>
+        public static int AreaOrPerimeter(int l, int w)
+        {
+            var result = l == w ? l * w : (l + w) * 2;
+            var result1 = 2 * (l + w);
+
+            return result;
+        }
     }
 }

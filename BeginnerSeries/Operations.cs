@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace CodeWarsConsoleApp.BeginnerSeries
 {
@@ -277,6 +278,64 @@ namespace CodeWarsConsoleApp.BeginnerSeries
                 : sum;
 
             var result1 = d * 40 - (d > 6 ? 50 : d > 2 ? 20 : 0);
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Ребенок бросает мяч из окна высокого здания. Мяч отскакивает.<br/>
+        /// Сколько раз мяч пролетит мимо наблюдаемой высоты.<br/>
+        /// Мяч можно увидеть, только если высота отскочившего мяча строго больше параметра window.
+        /// <code>
+        /// h = 3, bounce = 0.66, window = 1.5, result is 3
+        /// </code>
+        /// </summary>
+        /// <param name="h">Высота этажа над уровнем земли > 0</param>
+        /// <param name="bounce">Коэффициент отскока мяча. 0 > b > 1</param>
+        /// <param name="window">Высота, через которое виден пролетающий мяч. меньше h</param>
+        /// <returns>Количество пролетов мяча мимо наблюдателя или -1</returns>
+        public static int BouncingBall(double h, double bounce, double window)
+        {
+            if (h <= 0 || bounce <= 0 || bounce >= 1 || window >= h)
+                return -1;
+            int count = 0;
+            do
+            {
+                ++count;
+                h *= bounce;
+            } while (h > window);
+            var result = count * 2 - 1;
+
+            var result1 = 2 + BouncingBall(h * bounce, bounce, window);
+            var result2 = (int)Math.Log(window / h, bounce) * 2 + 1;                 // !!!
+
+            var result3 = h > 0 && bounce > 0 && bounce < 1 && window < h 
+                ? h < window 
+                    ? -1 
+                    : 2 + BouncingBall(h * bounce, bounce, window)
+                : -1;
+
+            int countA;
+            for (countA = -1; h > window && bounce > 0 && bounce < 1; h *= bounce)
+                countA += 2;
+            var result4 = count;
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Если у одного из цветков четное количество лепестков, а у другого - нечетное, вернуть true, иначе - false
+        /// </summary>
+        /// <param name="flower1">количество лепестков цветка 1</param>
+        /// <param name="flower2">количество лепестков цветка 2</param>
+        /// <returns></returns>
+        public static bool Lovefunc(int flower1, int flower2)
+        {
+            var result = ((flower1 + flower2) & 1) == 1;
+            var result2 = Convert.ToBoolean((flower1 ^ flower2) & 1);
+            var result1 = (flower1 + flower2) % 2 == 1;
 
             return result;
         }

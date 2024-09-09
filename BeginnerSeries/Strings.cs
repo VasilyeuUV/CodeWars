@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using static System.Text.RegularExpressions.Regex;
 
 namespace CodeWarsConsoleApp.BeginnerSeries
@@ -73,6 +74,25 @@ namespace CodeWarsConsoleApp.BeginnerSeries
 
 
         /// <summary>
+        /// Перевести заданную строку ДНК в РНК.<br/>
+        /// ДНК является основной молекулой хранения информации в биологических системах.<br/>
+        /// Она состоит из четырех оснований нуклеиновой кислоты - гуанина ("G"), цитозина ("C"), аденина ("A") и тимина ("T").<br/>
+        /// Рибонуклеиновая кислота, РНК, - это основная молекула-мессенджер в клетках.<br/>
+        /// Она отличается от ДНК по химической структуре и не содержит тимина. В РНК тимин заменен другой нуклеиновой кислотой урацилом ("U"). 
+        /// </summary>
+        /// <param name="dna"></param>
+        /// <returns></returns>
+        public string DnaToRna(string dna)
+        {
+            var result = dna.Replace("T", "U");
+            var result1 = Regex.Replace(dna, @"T", "U");
+
+            return result;
+        }
+
+
+
+        /// <summary>
         /// return, "Hello, <name> how are you doing today?"
         /// </summary>
         /// <param name="name"></param>
@@ -136,6 +156,21 @@ namespace CodeWarsConsoleApp.BeginnerSeries
             var result = int.TryParse(str, out var number) ? number : default;
             var result1 = int.Parse(str);
             var result2 = Convert.ToInt32(str);
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Удалить все ! из строки.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string RemoveExclamationMarks(string s)
+        {
+            var result = s.Replace("!", "");
+            var result1 = string.Join("", s.Split('!'));
+            var result2 = string.Concat(s.Split('!'));
 
             return result;
         }

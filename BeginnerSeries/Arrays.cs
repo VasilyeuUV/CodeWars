@@ -328,5 +328,40 @@ namespace CodeWarsConsoleApp.BeginnerSeries
 
             return result;
         }
+
+
+        /// <summary>
+        /// Вернутиь сумму вмех положительных чисел в массиве.
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static int PositiveSum(int[] arr)
+        {
+            var result = arr.Where(n => n > 0).Sum();
+            var result1 = arr.Aggregate(0, (e, r) => (r > 0 ? r + e : e));
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Из массива целых чисел удалите наименьшее значение. Не изменяйте исходный массив/список. 
+        /// </summary>
+        /// <param name="numbers"></param>
+        /// <returns></returns>
+        public static List<int> RemoveSmallest(List<int> numbers)
+        {
+            //if (numbers.Any())
+            if (numbers.Count != 0)                     // рекомендация.
+                numbers.Remove(numbers.Min());
+            var result = numbers;
+
+            numbers.Remove(numbers.DefaultIfEmpty().Min());
+
+            var result2 = numbers.Where((x, i) => i != numbers.IndexOf(numbers.Min())).ToList();
+            var result3 = numbers.Any() && numbers.Remove(numbers.Min()) ? numbers : new List<int>();
+
+            return result;
+        }
     }
 }
