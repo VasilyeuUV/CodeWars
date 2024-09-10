@@ -363,5 +363,19 @@ namespace CodeWarsConsoleApp.BeginnerSeries
 
             return result;
         }
+
+
+        /// <summary>
+        /// Возвращает минимальное и максимальное число из заданного списка/массива.
+        /// </summary>
+        /// <param name="lst"></param>
+        /// <returns></returns>
+        public static int[] MinMax(int[] lst)
+        {
+            var result = new int[] { lst.Min(), lst.Max() };
+            var result1 = new[] { lst.Min(), lst.Max() };
+
+            return result;
+        }
     }
 }

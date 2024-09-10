@@ -11,7 +11,7 @@ namespace CodeWarsConsoleApp
 
             var t = Dtg.Past(0, 1, 1);
 
-            var c = Operations.Lovefunc(5,4);
+            var c = Operations.findNb(1071225);
 
             var s = Strings.DuplicateEncode("");
             Console.WriteLine("Hello, World!");

@@ -46,5 +46,26 @@ namespace CodeWarsConsoleApp.BeginnerSeries
 
             return result;
         }
+
+
+        /// <summary>
+        /// Сделать число отрицательным.
+        /// </summary>
+        /// <code>
+        /// MakeNegative(1);  return -1
+        /// MakeNegative(-5); return -5
+        /// MakeNegative(0);  return 0
+        /// </code> 
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static int MakeNegative(int number)
+        {
+            var result = number > 0 ? -number : number;
+            var result1 = -Math.Abs(number);
+            var result2 = Math.Min(number, -number);
+            var result3 = (number >> 31) - (number ^ (number >> 31));
+
+            return result;
+        }
     }
 }

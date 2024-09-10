@@ -161,8 +161,8 @@ namespace CodeWarsConsoleApp.BeginnerSeries
             var result2 = dict.First(e => (new int[] { s1, s2, s3 }).Average() >= e.Key).Value;
 
             int s = (s1 + s2 + s3) / 3;
-            var result3 = s >= 60 
-                ? (char)(74 - s / 10 + s / 100) 
+            var result3 = s >= 60
+                ? (char)(74 - s / 10 + s / 100)
                 : 'F';
 
             return result;
@@ -196,13 +196,13 @@ namespace CodeWarsConsoleApp.BeginnerSeries
             var p = r == "sp" || r == "rs" || r == "pr" ? 1 : 2;
             var result1 = p1 == p2 ? "Draw!" : $"Player {p} won!";
 
-            var result2 = p1 == p2 
-                ? "Draw!" 
+            var result2 = p1 == p2
+                ? "Draw!"
                 : $"Player {(new[] { 3, -1, -2 }.Contains(p1[0] - p2[0]) ? 1 : 2)} won!";
 
             HashSet<string> map = new HashSet<string> { "scissorspaper", "paperrock", "rockscissors" };
-            var result3 = p1 == p2 
-                ? "Draw!" 
+            var result3 = p1 == p2
+                ? "Draw!"
                 : map.Contains(p1 + p2) ? "Player 1 won!" : "Player 2 won!";
 
             return result;
@@ -235,9 +235,9 @@ namespace CodeWarsConsoleApp.BeginnerSeries
                 _ => "Obese"
             };
 
-            var result1 = (weight = weight / height / height) > 30 ? "Obese" 
-                : weight > 25 ? "Overweight" 
-                : weight > 18.5 ? "Normal" 
+            var result1 = (weight = weight / height / height) > 30 ? "Obese"
+                : weight > 25 ? "Overweight"
+                : weight > 18.5 ? "Normal"
                 : "Underweight";
 
             return result;
@@ -310,9 +310,9 @@ namespace CodeWarsConsoleApp.BeginnerSeries
             var result1 = 2 + BouncingBall(h * bounce, bounce, window);
             var result2 = (int)Math.Log(window / h, bounce) * 2 + 1;                 // !!!
 
-            var result3 = h > 0 && bounce > 0 && bounce < 1 && window < h 
-                ? h < window 
-                    ? -1 
+            var result3 = h > 0 && bounce > 0 && bounce < 1 && window < h
+                ? h < window
+                    ? -1
                     : 2 + BouncingBall(h * bounce, bounce, window)
                 : -1;
 
@@ -338,6 +338,89 @@ namespace CodeWarsConsoleApp.BeginnerSeries
             var result1 = (flower1 + flower2) % 2 == 1;
 
             return result;
+        }
+
+
+        /// <summary>
+        /// Объединить расположенные рядом одинаковые элементы.<br/>
+        /// <code>
+        /// uniqueInOrder("ABBCcAD") == {'A', 'B', 'C', 'c', 'A', 'D'}
+        /// uniqueInOrder([1,2,2,3,3]) == {1,2,3}
+        /// </code>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="iterable"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> UniqueInOrder<T>(IEnumerable<T> iterable)
+        {
+            var result = new List<T>();
+            var arr = iterable.ToArray();
+            for (int i = 0; i < iterable.Count(); i++)
+            {
+                if (i == 0 || !arr[i].Equals(arr[i - 1]))
+                {
+                    result.Add(arr[i]);
+                }
+            }
+            //return result;
+
+            T previous = default(T);
+            foreach (T current in iterable)
+            {
+                if (!current.Equals(previous))
+                {
+                    previous = current;
+                    yield return current;
+                }
+            }
+
+            foreach (var element in iterable)
+                if (!element.Equals(result.LastOrDefault()))
+                    result.Add(element);
+
+            var result1 = iterable.Where((x, i) => i == 0 || !Equals(x, iterable.ElementAt(i - 1)));        // !!!
+
+            var array = iterable.ToArray();
+            var result2 = array.Where((a, i) => i == 0 || Comparer<T>.Default.Compare(a, array[i - 1]) != 0);
+        }
+
+
+        /// <summary>
+        /// Найти число кубиков, чтобы построить здание требуемого объема.<br/>
+        /// Куб внизу будет иметь объем (n-1)^3<br/>
+        /// Куб выше будет иметь объем 1^3
+        /// <code>
+        /// n^3 + (n−1)^3 + (n−2)^3 + ... + 1^3 = m
+        /// findNb(1071225) --> 45
+        /// findNb(91716553919377) --> -1
+        /// </code>
+        /// </summary>
+        /// <param name="m">Общий объем здания</param>
+        /// <returns>Вернуть целое число n,</returns>
+        public static long FindNb(long m)
+        {
+            int n = 0;
+            long v = 0;
+            while (v < m)
+            {
+                v += (long)Math.Pow(++n, 3.0);
+            }
+            var result = v == m ? n : -1;
+
+            long total = 1, i = 2;
+            for (; total < m; i++)
+                total += i * i * i;
+            var result1 = total == m ? i - 1 : -1;
+
+            long n2 = (long)Math.Floor(Math.Sqrt(2 * Math.Sqrt(m)));
+            var result2 = ((n * (n + 1)) / 2) * ((n * (n + 1)) / 2) == m ? n : -1;
+
+            long i3 = 1;
+            while (m > 0)
+                m -= i * i * i++;
+            var result3 = m == 0 ? --i : -1;
+
+
         }
     }
 }
