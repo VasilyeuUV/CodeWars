@@ -174,5 +174,55 @@ namespace CodeWarsConsoleApp.BeginnerSeries
 
             return result;
         }
+
+
+        /// <summary>
+        /// Создайте функцию, которая отвечает на вопрос "Играете ли вы на банджо?".<br/>
+        /// Если ваше имя начинается с буквы "R" или строчной буквы "r", то вы играете на банджо! и :
+        /// </summary>
+        /// <param name="name">Функция принимает имя в качестве единственного аргумента </param>
+        /// <returns>возвращает одну из следующих строк: name + " plays banjo"; name + " does not play banjo"</returns>
+        public static string AreYouPlayingBanjo(string name)
+        {
+            var result = name.StartsWith("r", StringComparison.OrdinalIgnoreCase)
+                ? $"{name} plays banjo"
+                : $"{name} does not play banjo";
+
+            var result1 = name.ToLower()[0] == 'r' 
+                ? name + " plays banjo" 
+                : name + " does not play banjo";
+
+            var result2 = string.Format("{0} {1} banjo", name, char.ToLower(name[0]) == 'r' 
+                ? "plays" 
+                : "does not play");
+
+            var result3 = new Regex("^[rR]").IsMatch(name)
+                ? name + " plays banjo"
+                : name + " does not play banjo";
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// вернуть строку, в которой каждый символ (с учетом регистра) повторяется ещё один раз.
+        /// <code>
+        /// * "Hello World" -> "HHeelllloo  WWoorrlldd"
+        /// * "1234!_ "     -> "11223344!!__  "
+        /// </code>
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string DoubleChar(string s)
+        {
+            var result = string.Join("", s.Select(x => new string(x, 2)));
+            var result1 = string.Join("", s.Select(x => "" + x + x));
+            var result2 = string.Concat(s.Select(x => $"{x}{x}"));
+            var result3 = Regex.Replace(s, ".", "$&$&");
+            var result5 = Regex.Replace(s, "(.)", "$1$1");
+            var result4 = s.Aggregate("", (str, x) => str + x + x);
+
+            return result;
+        }
     }
 }

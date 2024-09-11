@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CodeWarsConsoleApp.BeginnerSeries
 {
@@ -311,7 +312,7 @@ namespace CodeWarsConsoleApp.BeginnerSeries
 
 
         /// <summary>
-        /// Определить, является ли сумма элементов массива четной (even) или нечетной (щвв).<br/>
+        /// Определить, является ли сумма элементов массива четной (even) или нечетной (odd).<br/>
         ///  Если входной массив пуст, считайте его как: [0] (массив с нулем).
         ///  <code>
         ///  Input: [0]         Output: "even"
@@ -374,6 +375,109 @@ namespace CodeWarsConsoleApp.BeginnerSeries
         {
             var result = new int[] { lst.Min(), lst.Max() };
             var result1 = new[] { lst.Min(), lst.Max() };
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Все дороги выстроены в идеальную сетку.<br/>
+        /// Всегда один квартал для каждой буквы (направления)<br/>
+        /// На прохождение одного квартала уходит одна минута.
+        /// </summary>
+        /// <param name="walk">Направления для прогулок (например, ['n', 's', 'w', 'e']).</param>
+        /// <returns>true, если прогулка, которую вам назначит приложение, займет ровно десять минут </returns>
+        public static bool IsValidWalk(string[] walk)
+        {
+            var d = walk.GroupBy(a => a);
+            var result = walk.Length == 10
+                ? d.FirstOrDefault(g => g.Key.Equals("n"))?.Count() == d.FirstOrDefault(g => g.Key.Equals("s"))?.Count()
+                    && d.FirstOrDefault(g => g.Key.Equals("w"))?.Count() == d.FirstOrDefault(g => g.Key.Equals("e"))?.Count()
+                : false;
+
+            var result1 = walk.Count(x => x == "n") == walk.Count(x => x == "s")
+                && walk.Count(x => x == "e") == walk.Count(x => x == "w")
+                && walk.Length == 10;
+
+            var result2 = walk.Length == 10
+                && walk.Sum(s => new Dictionary<string, int> { { "n", 1 }, { "s", -1 }, { "e", 10 }, { "w", -10 } }[s]) == 0;
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Создайте новый список, который содержит каждое число из списка не более N раз, без переупорядочивания.
+        /// <code>
+        /// x = 2, arr = [1,2,3,1,2,1,2,3] => result = [1,2,3,1,2,3]
+        /// x = 1, arr = [20,37,20,21] => result = [20,37,21]
+        /// </code>>
+        /// </summary>
+        /// <param name="arr">Список</param>
+        /// <param name="x">Число</param>
+        /// <returns></returns>
+        public static int[] DeleteNth(int[] arr, int x)
+        {
+            Dictionary<int, int> d = new Dictionary<int, int>();
+            List<int> result = new List<int>();
+            foreach (int i in arr)
+            {
+                if (d.ContainsKey(i))       //  if (d.TryGetValue(i, out int value))
+                {
+                    if (d[i] < x)           //  if (value < x) 
+                    {
+                        d[i] += 1;
+                        result.Add(i);
+                    }
+                }
+                else
+                {
+                    result.Add(i);
+                    d.Add(i , 1);
+                }
+            }
+
+            var result1 = new List<int>();
+            foreach (var item in arr)
+            {
+                if (result1.Count(i => i == item) < x)
+                    result1.Add(item);
+            }
+
+            var result2 = arr.Where((t, i) => arr.Take(i + 1).Count(s => s == t) <= x).ToArray();       // это неэффективно - O(n^2) 
+
+            var result3 = arr.Where((e, i) => arr.Where((f, j) => j <= i && e == f).Count() <= x).ToArray();
+
+            var d4 = arr.Distinct().ToDictionary(n => n, _ => 0);
+            var result4 = arr.Where(n => d4[n]++ < x).ToArray();
+
+            return result.ToArray();
+        }
+
+
+        /// <summary>
+        /// Отсортировать нечетные числа в порядке возрастания, оставив четные числа на прежних местах.
+        /// <code>
+        /// [5, 8, 6, 3, 4]  =>  [3, 8, 6, 5, 4]
+        /// [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]  =>  [1, 8, 3, 6, 5, 4, 7, 2, 9, 0]
+        /// </code>
+        /// </summary>
+        /// <param name="array"></param>
+        /// <returns></returns>
+        public static int[] SortArray(int[] array)
+        {
+            Queue<int> odds = new Queue<int>(array.Where(n => (n & 1) == 1).OrderBy(n => n));
+            for (int i = 0; i < array.Length; i++)
+            {
+                if ((array[i] & 1) == 1)
+                {
+                    array[i] = odds.Dequeue();
+                }
+            }
+            var result = array;
+
+            Queue<int> odds1 = new Queue<int>(array.Where(e => e % 2 == 1).OrderBy(e => e));
+            var result1 = array.Select(e => e % 2 == 1 ? odds.Dequeue() : e).ToArray();
 
             return result;
         }

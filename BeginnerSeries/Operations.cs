@@ -420,7 +420,39 @@ namespace CodeWarsConsoleApp.BeginnerSeries
                 m -= i * i * i++;
             var result3 = m == 0 ? --i : -1;
 
+            return result;
+        }
 
+
+        /// <summary>
+        /// Посчитать, может ли автобус вместить всех пассажиров. 
+        /// </summary>
+        /// <param name="cap">количество людей, которое может вместить автобус, исключая водителя. </param>
+        /// <param name="on">оличество людей в автобусе, исключая водителя</param>
+        /// <param name="wait">количество людей, ожидающих посадки в автобус, исключая водителя. </param>
+        /// <returns>Если места достаточно, верните 0, а если нет, верните количество пассажиров, которых не влезут в автобус.</returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static int Enough(int cap, int on, int wait)
+        {
+            var result = cap > on + wait ? 0 : on + wait - cap;
+            var result1 = Math.Max(on + wait - cap, 0);
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Вероятность выживания в сражении с драконами.<br/>
+        /// На одного дракона нужно две пули.
+        /// </summary>
+        /// <param name="bullets">Количество пуль</param>
+        /// <param name="dragons">Количество драконов</param>
+        /// <returns>true если пуль хватит на всех драконов </returns>
+        public static bool Hero(int bullets, int dragons)
+        {
+            var result = bullets >= dragons << 1;
+
+            return result;
         }
     }
 }
