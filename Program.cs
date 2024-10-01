@@ -8,7 +8,7 @@ namespace CodeWarsConsoleApp
         {
             int[] arr = [1, 2, 3, 1, 2, 1, 2, 3];
             string[] d = ["n", "s", "n", "s", "n", "s", "n", "s", "n", "s"];
-            var a = Arrays.DeleteNth(arr, 2);
+            var a = Arrays.ArrayDiff(arr, arr);
 
             var t = Dtg.Past(0, 1, 1);
 

@@ -481,5 +481,44 @@ namespace CodeWarsConsoleApp.BeginnerSeries
 
             return result;
         }
+
+
+        /// <summary>
+        /// Удалить все значения из списка a, которые присутствуют в списке b, сохраняя их порядок.<br/>
+        /// Если значение присутствует в b, все его вхождения должны быть удалены из другого
+        /// <code>
+        /// ArrayDiff(new int[] {1, 2}, new int[] {1}) => new int[] {2}
+        /// ArrayDiff(new int[] {1, 2, 2, 2, 3}, new int[] {2}) => new int[] {1, 3}
+        /// </code>
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static int[] ArrayDiff(int[] a, int[] b)
+        {
+            var result = a.Where(ai => !b.Contains(ai)).ToArray();
+
+            var sb = new HashSet<int>(b);
+            var result1 = Array.FindAll(a, x => !sb.Contains(x));
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Удалить из массива каждый второй элемент. 
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static object[] RemoveEveryOther(object[] arr)
+        {
+            var result = arr.Where((e, i) => (i & 1) == 0).ToArray();
+            var result1 = arr.Where((e, i) => i % 2 == 0).ToArray();
+
+            var s = false;
+            var result2 = arr.Where(x => s = !s).ToArray();
+
+            return result;
+        }
     }
 }
