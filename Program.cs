@@ -12,7 +12,7 @@ namespace CodeWarsConsoleApp
 
             var t = Dtg.Past(0, 1, 1);
 
-            //var c = Operations.
+            var c = Operations.QueueTime([10, 2, 3, 3], 2);
 
             var s = Strings.DuplicateEncode("");
             Console.WriteLine("Hello, World!");

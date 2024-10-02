@@ -454,5 +454,42 @@ namespace CodeWarsConsoleApp.BeginnerSeries
 
             return result;
         }
+
+
+        /// <summary>
+        /// Функция, которая вычислит общее время, необходимое всем покупателям для оформления заказа (РАСПРЕДЕЛЕНИЕ ОЧЕРЕДИ).
+        /// <code>
+        /// queueTime([10,2,3,3], 2) => 10 - потому что здесь n=2 и 2-й, 3-й и 4-й люди в очереди заканчивают работу до того, как закончит 1-й человек.
+        /// queueTime([2,3,10], 2) => 12 - после второго станет 10-й
+        /// </code>
+        /// </summary>
+        /// <param name="customers">Очередь. Каждое число - покупатель, его значение - количество времени, которое требуется покупателю для оформления заказа.</param>
+        /// <param name="n">Количество касс</param>
+        /// <returns>Общее время, необходимое для оформления заказа</returns>
+        public static long QueueTime(int[] customers, int n)
+        {
+            int[] tills = new int[n];
+            for (int i = 0; i < customers.Length; i++)
+            {
+                int index = Array.IndexOf(tills, tills.Min());
+                tills[index] += customers[i];
+            }
+            var result = tills.Max();
+
+            var tills1 = new List<int>(Enumerable.Repeat(0, n));
+            foreach (int cust in customers)
+            {
+                tills1[tills1.IndexOf(tills1.Min())] += cust;
+            }
+            var result1 = tills1.Max();
+
+            var result2 = customers.Aggregate(new int[n], (a, i) =>
+            {
+                a[Array.IndexOf(a, a.Min())] += i;
+                return a;
+            }).Max();
+
+            return result;
+        }
     }
 }
