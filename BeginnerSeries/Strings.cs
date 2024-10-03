@@ -188,12 +188,12 @@ namespace CodeWarsConsoleApp.BeginnerSeries
                 ? $"{name} plays banjo"
                 : $"{name} does not play banjo";
 
-            var result1 = name.ToLower()[0] == 'r' 
-                ? name + " plays banjo" 
+            var result1 = name.ToLower()[0] == 'r'
+                ? name + " plays banjo"
                 : name + " does not play banjo";
 
-            var result2 = string.Format("{0} {1} banjo", name, char.ToLower(name[0]) == 'r' 
-                ? "plays" 
+            var result2 = string.Format("{0} {1} banjo", name, char.ToLower(name[0]) == 'r'
+                ? "plays"
                 : "does not play");
 
             var result3 = new Regex("^[rR]").IsMatch(name)
@@ -224,5 +224,90 @@ namespace CodeWarsConsoleApp.BeginnerSeries
 
             return result;
         }
+
+
+        /// <summary>
+        /// Вернуть текстовое название числа
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static string SwitchItUp(int number)
+        {
+            var result = number switch
+            {
+                0 => "Zero",
+                1 => "One",
+                2 => "Two",
+                3 => "Three",
+                4 => "Four",
+                5 => "Five",
+                6 => "Six",
+                7 => "Seven",
+                8 => "Eight",
+                9 => "Nine",
+                _ => throw new ArgumentOutOfRangeException(nameof(number))
+            };
+
+            string[] numbers = { "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten" };
+            var result1 = numbers[number];
+
+            var result2 = new[] { "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine" }[number];
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Вернуть текстовое значение числа в расширенном формате:
+        /// <code>
+        /// expandedForm(12)    --> should return "10 + 2"
+        /// expandedForm(70304) --> should return "70000 + 300 + 4"
+        /// </code>
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static string ExpandedForm(long num)
+        {
+            var s = num.ToString();
+            List<string> lst = [];
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (!s[i].Equals('0'))
+                {
+                    lst.Add($"{s[i]}{string.Join("", Enumerable.Repeat(0, s.Length - i - 1))}");
+                }
+            }
+            var result = string.Join(" + ", lst);
+
+            var str = num.ToString();
+            var result1 = string.Join(" + ", str
+                .Select((x, i) => char.GetNumericValue(x) * Math.Pow(10, str.Length - i - 1))
+                .Where(x => x > 0));
+
+            var result2 = string.Join(
+                " + ",
+                $"{num}"
+                    .Select((c, i) => c + new string('0', $"{num}".Length - i - 1))
+                    .Where(x => x[0] != '0')
+                );
+
+            var result3 = string.Join(
+                " + ",
+                num.ToString()
+                    .ToArray()
+                    .Reverse()
+                    .Select((x, i) => (x - 48) * Math.Pow(10, i))
+                    .Reverse()
+                    .Where(x => x != 0));
+
+            var result4 = $"{num}"
+                .Select((c, i) => c + new string('0', $"{num}".Length - i - 1))
+                .Where(s => s.First() != '0')
+                .Aggregate((a, b) => $"{a} + {b}");
+
+            return result;
+        }
+
     }
 }

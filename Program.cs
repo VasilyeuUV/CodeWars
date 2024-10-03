@@ -14,7 +14,7 @@ namespace CodeWarsConsoleApp
 
             var c = Operations.QueueTime([10, 2, 3, 3], 2);
 
-            var s = Strings.DuplicateEncode("");
+            var s = Strings.ExpandedForm(70);
             Console.WriteLine("Hello, World!");
         }
     }
