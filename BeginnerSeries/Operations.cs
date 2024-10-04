@@ -491,5 +491,82 @@ namespace CodeWarsConsoleApp.BeginnerSeries
 
             return result;
         }
+
+
+        /// <summary>
+        /// Вычислите, сколько лет назад отцу было вдвое больше лет, чем его сыну (или через сколько лет ему будет вдвое больше лет). 
+        /// </summary>
+        /// <param name="dadYears">текущий возраст отца (лет)</param>
+        /// <param name="sonYears">текущий возраст его сына (лет) </param>
+        /// <returns></returns>
+        public static int TwiceAsOld(int dadYears, int sonYears)
+        {
+            int result = 0;
+            while (sonYears == 0 || (float)dadYears / sonYears != 2.0)
+            {
+                if (dadYears - sonYears > sonYears)
+                {
+                    ++dadYears;
+                    ++sonYears;
+                }
+                else
+                {
+                    --dadYears;
+                    --sonYears;
+                }
+                ++result;
+            }
+
+            var result1 = Math.Abs(dadYears - sonYears * 2);
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Количество очков, которые команда Х получила в чемпионате.
+        /// <code>
+        /// если x > y - 3 очка (победа),
+        /// если x < y - 0 очков (поражение),
+        /// если x = y - 1 очко (ничья)
+        /// Команда всегда играет 10 матчей в чемпионате 
+        /// 0 <= x <= 4 
+        /// 0 <= y <= 4
+        /// </code>
+        /// </summary>
+        /// <param name="games">
+        /// Результаты матчей нашей команды записаны в набор строк.<br/>
+        /// <code>
+        /// For example: ["3:1", "2:2", "0:1", ...]
+        /// </code>
+        /// </param>
+        /// <returns></returns>
+        public static int TotalPoints(string[] games)
+        {
+            games = new[] { "1:0", "2:0", "3:0", "4:0", "2:1", "3:1", "4:1", "3:2", "4:2", "4:3" };
+            var result = games
+                .Select(g => g
+                    .Split(':')
+                    .Select(v => int.Parse(v))
+                    .Aggregate((x, y) => x > y ? 3
+                                        : x == y ? 1
+                                        : 0))
+                .Sum();
+
+            var result1 = games.Sum(s => s[0] > s[2] ? 3 
+                                        : s[0] == s[2] ? 1 
+                                        : 0);
+
+            var result3 = games
+                .Select(x => x[0] == x[2] ? 1 
+                            : x[0] > x[2] ? 3 
+                            : 0)
+                .Sum();
+
+            var result2 = games.Where(x => x[0] > x[2]).Count() * 3 
+                        + games.Where(y => y[0] == y[2]).Count();
+
+            return result;
+        }
     }
 }

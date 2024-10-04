@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using static System.Text.RegularExpressions.Regex;
 
@@ -309,5 +310,52 @@ namespace CodeWarsConsoleApp.BeginnerSeries
             return result;
         }
 
+
+        /// <summary>
+        /// Исправить ошибки в оцифрованном тексте.<br/>
+        /// S неправильно интерпретируется как 5<br/>
+        /// O неправильно интерпретируется как 0<br/>
+        /// I неправильно интерпретируется как 1 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static string Correct(string text)
+        {
+            var result = text
+                .Replace('5', 'S')
+                .Replace('0', 'O')
+                .Replace('1', 'I');
+
+            var result1 = new Regex(@"[501]")
+                .Replace(text, m => new Dictionary<string, string>()
+                {
+                    { "5", "S" },
+                    { "0", "O" },
+                    { "1", "I" }
+                }[m.Value]);
+
+            var result2 = text
+                .Aggregate(
+                    new StringBuilder(), 
+                    (s, c) => s.Append(c == '5' ? 'S' 
+                            : c == '0' ? 'O' 
+                            : c == '1' ? 'I' 
+                            : c))
+                .ToString();
+
+            var result3 = string.Join(
+                "", 
+                text.Select(x => x == '5' ? 'S' 
+                                : x == '0' ? 'O' 
+                                : x == '1' ? 'I' 
+                                : x));
+
+            var result4 = string.Concat(text.Select(x => x == '5' ? 'S' 
+                                                        : x == '0' ? 'O' 
+                                                        : x == '1' ? 'I' 
+                                                        : x));
+
+            return result;
+        }
     }
 }
