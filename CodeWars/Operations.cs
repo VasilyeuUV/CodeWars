@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -565,6 +566,71 @@ namespace CodeWarsConsoleApp.BeginnerSeries
 
             var result2 = games.Where(x => x[0] > x[2]).Count() * 3 
                         + games.Where(y => y[0] == y[2]).Count();
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Фиббоначи. Вернуть F(n) - наименьшее из них, такое, что F(n) * F(n+1) > prod
+        /// <code>
+        /// 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, ...
+        /// F(n) = F(n-1) + F(n-2) with F(0) = 0 and F(1) = 1.
+        /// </code>
+        /// Примеры:
+        /// <code>
+        /// productFib(714) # should return (21, 34, true), 
+        ///                 # since F(8) = 21, F(9) = 34 and 714 = 21 * 34
+        ///                 
+        /// productFib(800) # should return (34, 55, false), 
+        ///                 # since F(8) = 21, F(9) = 34, F(10) = 55 and 21 * 34 меньше 800 меньше 34 * 55
+        /// 
+        /// productFib(714) # should return [21, 34, true], 
+        /// productFib(800) # should return [34, 55, false], 
+        /// 
+        /// productFib(714) # should return {21, 34, 1}, 
+        /// productFib(800) # should return {34, 55, 0}, 
+        /// </code>
+        /// </summary>
+        /// <param name="prod">Целое число для формирования массива </param>
+        /// <returns>Если F(n) * F(n+1) = prod - Массив:
+        /// <code>
+        /// [F(n), F(n+1), true] or {F(n), F(n+1), 1} or (F(n), F(n+1), True)
+        /// </code>
+        /// Если F(n) * F(n+1) != prod - Массив:
+        /// <code>
+        /// [F(n), F(n+1), false] or {F(n), F(n+1), 0} or (F(n), F(n+1), False)
+        /// </code>>
+        /// </returns>
+        public static ulong[] ProductFib(ulong prod)
+        {
+            ulong a = 0;
+            ulong b = 1;
+            while (a * b < prod)
+            {
+                b = a + b;
+                a = b - a;
+            }
+            ulong[] result = a * b == prod 
+                ? [a, b, 1]
+                : [a, b, 0];
+
+
+            (ulong a1, ulong b1) = (0, 1);
+            while (prod > a1 * b1)
+            {
+                (a1, b1) = (b1, a1 + b1);
+            }
+            var result1 = new[] { a1, b1, (ulong)(prod == a1 * b1 ? 1 : 0) };
+
+
+            (ulong a2, ulong b2) t = (0, 1);
+            while (t.a2 * t.b2 < prod)
+            {
+                t = (t.b2, t.a2 + t.b2);
+            }
+            var result2 = new ulong[] { t.a2, t.b2, (t.a2 * t.b2 == prod) ? 1UL : 0UL };
+
 
             return result;
         }

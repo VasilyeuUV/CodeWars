@@ -12,9 +12,12 @@ namespace CodeWarsConsoleApp
 
             var t = Dtg.Past(0, 1, 1);
 
-            var c = Operations.TotalPoints(null);
+            var c = Operations.ProductFib(714);
 
             var s = Strings.Correct("");
+
+            var r = Numbers.IntPower(4, 5);
+
             Console.WriteLine("Hello, World!");
         }
     }
