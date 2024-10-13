@@ -336,24 +336,68 @@ namespace CodeWarsConsoleApp.BeginnerSeries
 
             var result2 = text
                 .Aggregate(
-                    new StringBuilder(), 
-                    (s, c) => s.Append(c == '5' ? 'S' 
-                            : c == '0' ? 'O' 
-                            : c == '1' ? 'I' 
+                    new StringBuilder(),
+                    (s, c) => s.Append(c == '5' ? 'S'
+                            : c == '0' ? 'O'
+                            : c == '1' ? 'I'
                             : c))
                 .ToString();
 
             var result3 = string.Join(
-                "", 
-                text.Select(x => x == '5' ? 'S' 
-                                : x == '0' ? 'O' 
-                                : x == '1' ? 'I' 
+                "",
+                text.Select(x => x == '5' ? 'S'
+                                : x == '0' ? 'O'
+                                : x == '1' ? 'I'
                                 : x));
 
-            var result4 = string.Concat(text.Select(x => x == '5' ? 'S' 
-                                                        : x == '0' ? 'O' 
-                                                        : x == '1' ? 'I' 
+            var result4 = string.Concat(text.Select(x => x == '5' ? 'S'
+                                                        : x == '0' ? 'O'
+                                                        : x == '1' ? 'I'
                                                         : x));
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Построить пирамидальную башню как массив/список строк, учитывая положительное целое число этажей.<br/>
+        /// Блок башни представлен символом "*"
+        /// <code>
+        /// [
+        /// "  *  ",
+        /// " *** ", 
+        /// "*****"
+        /// ]
+        /// </code>
+        /// </summary>
+        /// <param name="nFloors">Количество уровней</param>
+        /// <returns></returns>
+        public static string[] TowerBuilder(int nFloors)
+        {
+            var result = Enumerable.Range(1, nFloors)
+                .Select((x, i) => new string('*', i * 2 + 1)
+                    .PadLeft(((nFloors * 2 - 1) - (i * 2 + 1)) / 2 + (i * 2 + 1), ' ')
+                    .PadRight(nFloors * 2 - 1, ' '))
+                .ToArray();
+
+
+            var result1 = Enumerable.Range(0, nFloors)
+                .Select(x => new string('*', x * 2 + 1)
+                .PadLeft(nFloors + x)
+                .PadRight(nFloors * 2 - 1))
+                .ToArray();
+
+            var result2 = Enumerable.Range(1, nFloors)
+                .Select(x => new string(' ', nFloors - x)
+                          + new string('*', x * 2 - 1)
+                          + new string(' ', nFloors - x))
+                .ToArray();
+
+            var result3 = Enumerable.Range(1, nFloors)
+                .Select(x => string.Format("{0}{1}{0}", 
+                                            new string(' ', nFloors - x),
+                                            new string('*', 2 * x - 1)))
+                .ToArray();
 
             return result;
         }

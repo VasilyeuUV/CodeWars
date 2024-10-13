@@ -94,5 +94,20 @@ namespace CodeWarsConsoleApp.BeginnerSeries
         }
 
 
+        /// <summary>
+        /// Определить, является ли переданное число четным (even).<br/>
+        /// Плавающие числа с десятичной частью, не равной нулю, считаются нечетными для этого ката.
+        /// </summary>
+        /// <param name="n">положительное или отрицательное целое или плавающее</param>
+        /// <returns>true, либо false.</returns>
+        public static bool IsEven(double n)
+        {
+            var result = n == Math.Truncate(n)
+                        && (Math.Abs(n) % 2) == 0;
+
+            var result1 = n % 2 == 0;
+
+            return result;
+        }
     }
 }
