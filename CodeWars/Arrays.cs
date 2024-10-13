@@ -433,7 +433,7 @@ namespace CodeWarsConsoleApp.BeginnerSeries
                 else
                 {
                     result.Add(i);
-                    d.Add(i , 1);
+                    d.Add(i, 1);
                 }
             }
 
@@ -517,6 +517,56 @@ namespace CodeWarsConsoleApp.BeginnerSeries
 
             var s = false;
             var result2 = arr.Where(x => s = !s).ToArray();
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Проверяет, есть ли в двух массивах "одинаковые" элементы с одинаковой кратностью<br/>
+        /// (кратность члена - это количество раз, которое он встречается).
+        /// <code>
+        /// a = [121, 144, 19, 161, 19, 144, 19, 11]  
+        /// b = [121, 14641, 20736, 361, 25921, 361, 20736, 361]
+        /// comp(a, b) возвращает true, потому что в b:
+        /// - 121 - квадрат 11, 
+        /// - 14641 - квадрат 121, 
+        /// - 20736 - квадрат 144, 
+        /// - 361 - квадрат 19, 
+        /// 25921 - квадрат 161, 
+        /// и так далее.
+        /// 
+        /// Это становится очевидным, если записать элементы b в терминах квадратов:
+        /// b = [11*11, 121*121, 144*144, 19*19, 161*161, 19*19, 144*144, 19*19]
+        /// </code>
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool Comp(int[] a, int[] b)
+        {
+            //a = [121, 144, 19, 161, 19, 144, 19, 11];
+            //b = [121, 14641, 20736, 361, 25921, 361, 20736, 361];
+            if (b == null || a.Length != b.Length)
+                return false;
+            var listB = b.ToList();
+            foreach (int ai in a)
+            {
+                listB.Remove(listB.FirstOrDefault(bi => bi == ai * ai));
+            }
+            var result = listB.Count == 0;
+
+
+            var result1 = a != null 
+                        && b != null 
+                        && a.Select(v => v * v)
+                            .OrderBy(v => v)
+                            .SequenceEqual(b.OrderBy(v => v));
+
+            var result2 = a != null                                                     // !!!
+                        && b != null
+                        && a.Length == b.Length
+                        && a.Sum(x => x * x) == b.Sum();
 
             return result;
         }
